@@ -26,12 +26,12 @@ $options = getopt("o:f:n:");
 
 // We default to 100
 $number = 100;
-if($options['n']) {
+if(!empty($options['n'])) {
    $number = $options['n'];
 }
 
 // Do we need to download a new csv file?
-if(!file_exists('top-1m.csv') || (!isset($options['f']) && $options['f'] == 1)) {
+if(!file_exists('top-1m.csv') || (isset($options['f']) && $options['f'] == 1)) {
    system('rm -rf top-1m.csv.zip top-1m.csv && wget http://s3.amazonaws.com/alexa-static/top-1m.csv.zip && unzip top-1m.csv.zip && rm -rf top-1m.csv.zip');
 }
 
@@ -39,7 +39,7 @@ $lines = file('top-1m.csv');
 
 // This is pretty simple.
 $i = 0;
-foreach($lines as $number => $line) {
+foreach($lines as $num => $line) {
    $i++;
    if($i < $number + 1) {
       $domain = explode(',', $line);
