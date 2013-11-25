@@ -31,6 +31,18 @@ if(!empty($options['n'])) {
    $number = $options['n'];
 }
 
+// If we have an output file specified, and a file with the same name already
+// exists, should it be deleted or appended?
+if(!empty($options['o']) && file_exists($options['o'])) {
+   print $options['o'].' already exists. Do you want to DELETE it before continuing? [Y/n] ';
+
+   $handle = fopen('php://stdin', 'r');
+   $line = fgets($handle);
+   if(trim(strtolower($line)) != 'n'){
+       unlink($options['o']);
+   }
+}
+
 // Do we need to download a new csv file?
 if(!file_exists('top-1m.csv') || (isset($options['f']) && $options['f'] == 1)) {
    system('rm -rf top-1m.csv.zip top-1m.csv && wget http://s3.amazonaws.com/alexa-static/top-1m.csv.zip && unzip top-1m.csv.zip && rm -rf top-1m.csv.zip');
