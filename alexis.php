@@ -13,16 +13,17 @@
 /**
  * EXAMPLES
  *
- * $ php alexis.php # Just print out the top 100 sites
- * $ php alexis.php -n 500# Woah, getting greedy. Print out the top 500.
+ * $ php alexis.php # Just print out the top 100 sites.
+ * $ php alexis.php -n 500 # Woah, getting greedy. Print out the top 500.
  * $ php alexis.php -o domains.txt # Let's save these, cuz we love I/O.
  * $ php alexis.php -f 1 # Update the local csv file, no matter what.
+ * $ php alexis.php -s 1 # Sort the results alphanumerically.
  */
 
 // Turns the machine in to a super computer, giving it unlimited memory.
 ini_set('memory_limit', '-1');
 
-$options = getopt("o:f:n:");
+$options = getopt("o:f:n:s:");
 
 // We default to 100
 $number = 100;
@@ -39,18 +40,28 @@ $lines = file('top-1m.csv');
 
 // This is pretty simple.
 $i = 0;
+$domains = array();
 foreach($lines as $num => $line) {
    $i++;
    if($i < $number + 1) {
       $domain = explode(',', $line);
       $domain = $domain[1];
       $domains[] = $domain;
-      if(!empty($options['o'])) {
-         file_put_contents($options['o'], $domain, FILE_APPEND);
-      }
-         echo $domain;
-      }
+   }
    else {
-   exit;
+      if(!empty($options['s']) && $options['s'] == 1) {
+         natsort($domains);
+      }
+      if(!empty($options['o'])) {
+         foreach($domains as $d) {
+            file_put_contents($options['o'], $d, FILE_APPEND);
+         }
+      }
+      else {
+         foreach($domains as $d) {
+            echo $d;
+         }
+      }
+      exit;
    }
 }
