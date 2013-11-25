@@ -45,7 +45,11 @@ if(!empty($options['o']) && file_exists($options['o'])) {
 
 // Do we need to download a new csv file?
 if(!file_exists('top-1m.csv') || (isset($options['f']) && $options['f'] == 1)) {
-   system('rm -rf top-1m.csv.zip top-1m.csv && wget http://s3.amazonaws.com/alexa-static/top-1m.csv.zip && unzip top-1m.csv.zip && rm -rf top-1m.csv.zip');
+   @unlink('top-1m.csv.zip');
+   @unlink('top-1m.csv');
+   file_put_contents('top-1m.csv.zip', file_get_contents('http://s3.amazonaws.com/alexa-static/top-1m.csv.zip'));
+   exec('unzip top-1m.csv.zip');
+   @unlink('top-1m.csv.zip');
 }
 
 $lines = file('top-1m.csv');
