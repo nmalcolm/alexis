@@ -11,8 +11,8 @@ Examples
 ```$ php alexis.php -n 500 # Woah, getting greedy. Print out the top 500.```
 ```$ php alexis.php -o domains.txt # Let's save these, cuz we love I/O.```
 ```$ php alexis.php -f 1 # Update the local csv file, no matter what.```
-```$ php alexis.php -s 1 # Sort the results alphanumerically.```
-
+```$ php alexis.php -s a # Sort the results alphanumerically, ascending.```
+```$ php alexis.php -s d # Sort the results alphanumerically, descending.```
 
 License
 =============
