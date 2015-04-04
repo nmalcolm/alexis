@@ -6,7 +6,7 @@
  * Simple script I hacked together to pull the top 100 Alexa ranked websites.
  *
  * Author: Nathan Malcolm
- * Date: Sunday, November 24 3013
+ * Date: Sunday, November 24 2013
  * License: DON'T BE A DICK PUBLIC LICENSE. See LICENSE.
  */
 
