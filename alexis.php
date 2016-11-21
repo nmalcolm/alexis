@@ -48,7 +48,8 @@ if(!empty($options['o']) && file_exists($options['o'])) {
 if(!file_exists('top-1m.csv') || (isset($options['f']) && $options['f'] == 1)) {
    @unlink('top-1m.csv.zip');
    @unlink('top-1m.csv');
-   file_put_contents('top-1m.csv.zip', file_get_contents('http://s3.amazonaws.com/alexa-static/top-1m.csv.zip'));
+   // Because fuck you, Alexa. 
+   file_put_contents('top-1m.csv.zip', file_get_contents('https://web.archive.org/web/20161028190313/http://s3.amazonaws.com/alexa-static/top-1m.csv.zip'));
    exec('unzip top-1m.csv.zip');
    @unlink('top-1m.csv.zip');
 }
